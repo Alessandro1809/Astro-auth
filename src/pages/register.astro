@@ -3,7 +3,7 @@ import AuthLayout from "@/layouts/AuthLayout.astro";
 
 ---
 <AuthLayout title="Register">
-    <div class="flex justify-center self-center  z-10">
+    <div class="flex justify-center self-center text-black z-10">
         <div class="p-12 bg-white mx-auto rounded-2xl w-100 ">
             <div class="mb-4">
               <h3 class="font-semibold text-2xl text-gray-800">Registro </h3>
@@ -33,11 +33,7 @@ import AuthLayout from "@/layouts/AuthLayout.astro";
                   Recuerdame
                 </label>
               </div>
-              <div class="text-sm mx-2">
-                <a href="#" class="text-green-400 hover:text-green-500">
-                  Olvidaste tu contraseña?
-                </a>
-              </div>
+             
               <div class="text-sm mx-2">
                 <a href="/login" class="text-green-400 hover:text-green-500">
                   Ya tienes una cuenta?
@@ -52,7 +48,7 @@ import AuthLayout from "@/layouts/AuthLayout.astro";
             </div>
             <div class="pt-5 text-center text-gray-400 text-xs">
               <span>
-                Copyright © 2021-2022
+                Copyright © 2021-{new Date().getFullYear()}
                 <a href="https://codepen.io/uidesignhub" rel="" target="_blank" title="Ajimon" class="text-green hover:text-green-500 ">AJI</a></span>
             </div>
         </div>

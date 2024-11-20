@@ -1,5 +1,6 @@
 ---
 import Nabvar from '@/components/Nabvar.astro';
+import { ViewTransitions } from 'astro:transitions';
 
 
 
@@ -18,10 +19,11 @@ const { title ='Astro auth app' } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<ViewTransitions />
 	</head>
 	<body>
 		<Nabvar />
-		<main class="min-h-screen bg-slate-900 text-white">
+		<main class="min-h-screen text-black container m-auto max-w-3xl px-5 ">
 			<slot />
 		</main>
 	</body>
