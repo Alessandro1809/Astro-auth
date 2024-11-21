@@ -1,6 +1,6 @@
 ---
 
-// import { firebase } from "@/firebase/config";
+import { firebase } from "@/firebase/config";
 import MainLayout from "@/layouts/MainLayout.astro";
 
 interface Props{
@@ -17,8 +17,8 @@ if (!isLoguedIn || !user) {
 
 
 const {name,email, emailVerified, photoURL} = user
-// const firebaseUSer = firebase.auth.currentUser//si no existe el usuario entonces es null y no hay problema
-// await firebaseUSer?.reload();//--> recaraga la informacion del usuario por si hay cambios recientes en la base de datos
+const firebaseUSer = firebase.auth.currentUser//si no existe el usuario entonces es null y no hay problema
+await firebaseUSer?.reload();//--> recaraga la informacion del usuario por si hay cambios recientes en la base de datos
 
 // //--> si el usuario no existe entonces redirecciona a la pagina de login
 // if (firebaseUSer === null) {

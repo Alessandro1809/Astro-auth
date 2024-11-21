@@ -40,7 +40,7 @@ export const registerUser = defineAction({
                     url: `${import.meta.env.WEBSITE_URL}/protected?emailVerify=true`,
                 });//lleva como parametro el objeto de autenticacion
                 //regresar el usuario
-                return JSON.stringify(user)
+                return JSON.stringify(user);
             } catch (error) {
                 const firebaseError = error as AuthError;
 
