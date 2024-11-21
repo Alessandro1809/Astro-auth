@@ -98,7 +98,7 @@ const rememberMe= !!email;//convierte el email en un booleano con !! evalua si e
 
   <script>
     import { actions } from "astro:actions";
-
+    import Swal from "sweetalert2";
     document.addEventListener("astro:page-load", () => {
       const form = document.querySelector("form") as HTMLFormElement;
       const btnSubmit = document.querySelector(
@@ -114,10 +114,17 @@ const rememberMe= !!email;//convierte el email en un booleano con !! evalua si e
         const { data, error } = await actions.registerUser(formData);
 
         if (error) {
-          console.log(error.message);
+          Swal.fire({
+            icon: "error",
+            title: "Credenciales incorrectas",
+            text: error.message,
+          })
+          btnSubmit.removeAttribute("disabled");
+          return;
         }
 
-        btnSubmit.removeAttribute("disabled");
+        window.location.replace("/protected");
+        
       });
     });
   </script></AuthLayout

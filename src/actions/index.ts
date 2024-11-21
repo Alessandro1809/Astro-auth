@@ -1,9 +1,12 @@
-import { registerUser } from "./auth";
+import { registerUser, logOut, lolgIn } from "./auth";
+
 
 
 export const server = {
     //actions
 
     //auth
-   registerUser
+   registerUser,
+   logOut,
+   lolgIn
 }

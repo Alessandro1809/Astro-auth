@@ -13,8 +13,8 @@
         <li class="font-semibold text-gray-700">
           <a href="/login">Ingresar</a>
         </li>
-        <li class="font-semibold text-gray-700">
-          <a href="/login">Salir</a>
+        <li id="logout" class="font-semibold text-gray-700">
+          <a href="#">Salir</a>
         </li>
         <li>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -32,3 +32,13 @@
       </ul>
     </div>
   </nav>
+
+  <script>
+import { actions } from "astro:actions";
+
+    const logOutElement = document.querySelector('#logout') as HTMLLIElement;
+    logOutElement?.addEventListener('click', () => {
+      actions.logOut();
+      window.location.href = '/';
+    })
+  </script>
