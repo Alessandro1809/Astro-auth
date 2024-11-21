@@ -10,7 +10,7 @@ interface Props{
 const {title ="Home Page"} = Astro.props
 
 const firebaseUSer = firebase.auth.currentUser//si no existe el usuario entonces es null y no hay problema
-
+await firebaseUSer?.reload();
 if (firebaseUSer === null) {
 	return Astro.redirect('/login')
 }

@@ -42,13 +42,19 @@ const rememberMe= !!email;
               <button id="btn-submit" type="submit" class="disabled:bg-gray-400 w-full flex justify-center bg-green-400  hover:bg-green-500 text-gray-100 p-3  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
                 Iniciar Sesion
               </button>
+              <div class=" flex flex-1 w-full my-2">
+                <div class="w-fulll border-t-2 border-gray-500">
+                </div>
+                <button id="btn-google" type="button" class="disabled:bg-gray-400 w-full flex justify-center bg-purple-400  hover:bg-purple-500 text-gray-100 p-3  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+                  Iniciar con Google
+                </button>
+              </div>
             </div>
             </div>
           </form>
           <div class="pt-5 text-center text-gray-400 text-xs">
             <span>
               Copyright © 2021- {new Date().getFullYear()}
-              <a href="https://codepen.io/uidesignhub" rel="" target="_blank" title="Ajimon" class="text-green hover:text-green-500 ">AJI</a></span>
           </div>
       </div>
 </AuthLayout>
@@ -56,11 +62,16 @@ const rememberMe= !!email;
 <script>
 import { actions } from "astro:actions";
 import Swal from "sweetalert2";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { firebase } from "@/firebase/config";
 
   document.addEventListener("astro:page-load", () => {
     const form = document.querySelector("form") as HTMLFormElement;
     const btnSubmit = document.querySelector(
       "#btn-submit"
+    ) as HTMLButtonElement;
+    const btnGoogle = document.querySelector(
+      "#btn-google"
     ) as HTMLButtonElement;
 
     form.addEventListener("submit", async (e) => {
@@ -81,7 +92,34 @@ import Swal from "sweetalert2";
       window.location.replace("/protected");
     });
 
-
+    btnGoogle.addEventListener("click", async (e) => {
+      //desactivar el boton para evitar multiples clicks que afecten la app
+      btnGoogle.setAttribute("disabled", "disabled");
+      const provider = new GoogleAuthProvider();//Primero se debe de crear un provider
+      try {
+        //obtener las credenciales del lado del cliente
+        const credentials= await signInWithPopup(firebase.auth,provider);//lleva como parametro el objeto de autenticacion y el provider
+        
+        //verifdicar las credenciales en el backend
+        const {error} = await actions.logiWithGoogle(credentials);
+        if (error) {
+          Swal.fire({
+            icon: "error",
+            title: "Error en el proveedor",
+            text: error.message,
+          });
+          btnGoogle.removeAttribute("disabled");
+          return;
+        }
+        btnGoogle.innerText="Redireccionando...";
+        window.location.replace("/protected");
+      } catch (error) {
+        console.log(error);
+         btnGoogle.removeAttribute("disabled");
+      }
+      //desabilitar el boton
+      btnGoogle.removeAttribute("disabled");
+    });
 
   });
 
