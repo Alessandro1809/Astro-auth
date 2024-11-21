@@ -1,6 +1,6 @@
 ---
 
-import { firebase } from "@/firebase/config";
+// import { firebase } from "@/firebase/config";
 import MainLayout from "@/layouts/MainLayout.astro";
 
 interface Props{
@@ -9,16 +9,26 @@ interface Props{
 
 const {title ="Home Page"} = Astro.props
 
-const firebaseUSer = firebase.auth.currentUser//si no existe el usuario entonces es null y no hay problema
-await firebaseUSer?.reload();
-if (firebaseUSer === null) {
-	return Astro.redirect('/login')
+const { user, isLoguedIn } = Astro.locals
+
+if (!isLoguedIn || !user) {
+	return Astro.redirect('/login');
 }
 
-const { displayName, email, emailVerified, photoURL } = firebaseUSer
+
+const {name,email, emailVerified, photoURL} = user
+// const firebaseUSer = firebase.auth.currentUser//si no existe el usuario entonces es null y no hay problema
+// await firebaseUSer?.reload();//--> recaraga la informacion del usuario por si hay cambios recientes en la base de datos
+
+// //--> si el usuario no existe entonces redirecciona a la pagina de login
+// if (firebaseUSer === null) {
+// 	return Astro.redirect('/login')
+// }
+
+// const { displayName, email, emailVerified, photoURL } = firebaseUSer
 
 
-const name = displayName ?? 'no display name yet'
+// const name = displayName ?? 'no display name yet'
 ---
 <MainLayout title={title}>
 	<body >

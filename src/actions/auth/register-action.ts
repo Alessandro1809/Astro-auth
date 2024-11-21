@@ -37,7 +37,7 @@ export const registerUser = defineAction({
 
                 //verificar el email
                 await sendEmailVerification(firebase.auth.currentUser!,{
-                    url: 'http://localhost:4321/protected?emailVerify=true',
+                    url: `${import.meta.env.WEBSITE_URL}/protected?emailVerify=true`,
                 });//lleva como parametro el objeto de autenticacion
                 //regresar el usuario
                 return JSON.stringify(user)
